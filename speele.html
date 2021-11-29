@@ -1,1 +1,161 @@
+<!DOCTYPE html>
+<head>
+<title>Lingo</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Verdana, Helvetica, sans-serif;
+  background-color: rgb(5, 64, 83);
+  font-size: 12px;
+  color: white;
+}
+h1 {
+  font-size: 32px;
+  text-shadow: 2px 2px 5px lightgray;
+}
+button {
+  background-color: rgb(5, 64, 83);
+  border: none;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.galva {
+  padding: 10px;
+  text-align: center;
+}
+td {
+  padding-left: 80px;
+}
+.josla {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  color: rgb(5, 64, 83);
+  font-size: 14px;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px gray;
+}
+
+.josla a {
+  float: left;
+  display: block;
+  color:  rgb(5, 64, 83);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.josla a:hover {
+  background-color: rgb(173, 173, 173);
+  color: black;
+}
+
+/* Create three unequal columns that floats next to each other */
+.column {
+  float: left;
+  padding: 10px;
+}
+
+/* Left and right column */
+.column.side {
+  width: 25%;
+}
+
+/* Middle column */
+.column.middle {
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column.side, .column.middle {
+    width: 100%;
+  }
+}
+
+.footer {
+  background-color: #f1f1f1;
+  color: rgb(5, 64, 83);
+  padding: 5px;
+  text-align: right;
+}
+</style>
+</head>
+
+<body>
+
+<div class="galva">
+  <h1>Spēle "Lingo"</h1>
+ </div>
+
+<div class="josla">
+  <a href="#">Sākums</a>
+  <a href="#">Spēle</a>
+  <a href="#">Rezultāti</a>
+  <a href="#">Kā spēlēt</a>
+</div>
+
+<div class="row">
+  <div class="column side">
+    <h2>Vārdu grupas</h2>
+    <label for="grupas">Izvēlies vienu:</label>
+    <select id="grupas" name="cars">
+      <option value="visi">Dažādi</option>
+      <option value="augi">Augi</option>
+      <option value="dzivnieki">Dzīvnieki</option>
+      <option value="lietas">Lietas</option>
+    </select>
+    <p>
+      <button type="button" onclick="alert('Drīz būs ...')">
+        <img src="play.png" alt="Sākšanas poga" style="width:100px;height:100px;">
+      </button>
+    </p>
+  </div>
+  
+  <div class="column middle">
+    <h2>
+      <table>
+        <tr>
+          <td>Punkti:</td>
+          <td>Laiks:</td>
+          <td>Dzīvības:</td>
+        </tr>
+      </table>
+    </h2>
+    <p><i>Tālāk būs kaut kas tāds</i></p> 
+    <img src="l0.jpg" alt="Paraugs">
+  </div>
+  
+  <div class="column side">
+    <h2>Spēles noteikumi</h2>
+    <p>Jāatmin 5 vārdi 5 minūtēs.</p>
+    <p>Neapreizi atminēts vārds samazina mēģinājumu skaitu.</p>
+    <p>Pareiza atbilde palielina punktu skaitu un minēšanai paredzēto laiku.</p>
+    <p>Dzeltens laukums nozīmē, ka tāds burts vārdā ir, bet tikai citā vietā.</p>
+    <p>Zaļš laukums nozīmē, ka tāds burts vārdā ir un atrodas pareizā vietā.</p>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Copyright © 2021 Iveta. All rights reserved.</p>
+</div>
+  
+</body>
+</html>
+
 
