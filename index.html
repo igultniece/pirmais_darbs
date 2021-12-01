@@ -100,26 +100,18 @@ td {
 <body>
 
 <div class="galva">
-  <h1>Spēle "Lingo"</h1>
+  <h1>Spēle "Burtlicis"</h1>
  </div>
 
 <div class="josla">
   <a href="#">Sākums</a>
   <a href="#">Spēle</a>
-  <a href="#">Rezultāti</a>
-  <a href="#">Kā spēlēt</a>
+  <a href="#">Spēles rezultāti</a>
+  <a href="#">Spēles noteikumi</a>
 </div>
 
 <div class="row">
   <div class="column side">
-    <h2>Vārdu grupas</h2>
-    <label for="grupas">Izvēlies vienu:</label>
-    <select id="grupas" name="cars">
-      <option value="visi">Dažādi</option>
-      <option value="augi">Augi</option>
-      <option value="dzivnieki">Dzīvnieki</option>
-      <option value="lietas">Lietas</option>
-    </select>
     <p>
       <button type="button" onclick="alert('Drīz būs ...')">
         <img src="play.png" alt="Sākšanas poga" style="width:100px;height:100px;">
@@ -133,26 +125,40 @@ td {
         <tr>
           <td>Punkti:</td>
           <td>Laiks:</td>
-          <td>Dzīvības:</td>
+          <td>Līmenis:</td>
+          <td>Kopā:</td>
         </tr>
       </table>
     </h2>
-    <p><i>Tālāk būs kaut kas tāds</i></p> 
-    <img src="l0.jpg" alt="Paraugs">
+    <i>
+      <p>Tālāk būs kaut kas tāds. </p>
+      <p>Virs tā būs saraksts ar dotajā burtu virknējumā jau atrastajiem vārdiem.</p>
+      <p>Baltajos laukumos varēs redzēt citā krāsā, ka burts ir ievietots, bet nerādīs pašu burtu.</p>
+    </i> 
+    <img src="l0.png" alt="Paraugs">
   </div>
   
   <div class="column side">
     <h2>Spēles noteikumi</h2>
-    <p>Jāatmin 5 vārdi 5 minūtēs.</p>
-    <p>Neapreizi atminēts vārds samazina mēģinājumu skaitu.</p>
-    <p>Pareiza atbilde palielina punktu skaitu un minēšanai paredzēto laiku.</p>
-    <p>Dzeltens laukums nozīmē, ka tāds burts vārdā ir, bet tikai citā vietā.</p>
-    <p>Zaļš laukums nozīmē, ka tāds burts vārdā ir un atrodas pareizā vietā.</p>
+    <p>No dotajiem burtiem jāsaliek vārds.
+		Vārdu derīgums tiek pārbaudīts spēles vārdnīcā.</p>
+	<p>Līmeņa iziešanai paredzētais laiks ir 2:30.</p>
+    <p>Lai tiktu nākamajā līmenī, jāatmin sešu burtu vārds vai
+	jāiegūst norādītais punktu skaits no īsākiem vārdiem.</p>
+	<p>Punktu piešķiršana:</p>
+	<ul>
+		<li>trīs burtu - 90 punkti</li>
+		<li>četru burtu - 160 punkti</li>
+		<li>piecu burtu - 250 punkti</li>
+		<li>sešu burtu - 360 punkti</li>
+	</ul> 
+    <p>Veiksmīgu spēli!</p>
+
   </div>
 </div>
 
 <div class="footer">
-  <p>Copyright © 2021 Iveta. All rights reserved.</p>
+  <p>Spēli veidoja Iveta Gultniece kā uzdevumu start(it) kursu ietvaros.</p>
 </div>
   
 </body>
