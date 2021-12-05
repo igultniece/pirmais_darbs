@@ -4,9 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-* {
-  box-sizing: border-box;
-}
 
 body {
   margin: 0;
@@ -15,34 +12,46 @@ body {
   font-size: 12px;
   color: white;
 }
+div {
+  margin-left: 10px;  
+}
 h1 {
   font-size: 32px;
   text-shadow: 2px 2px 5px lightgray;
 }
-button {
+.sakt {
   background-color: rgb(5, 64, 83);
   border: none;
 }
-img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+.viens {
+  background-color: rgb(5, 64, 83);
+  background-image: url("poga.png");
+  border: none;
+  font-size: 32px;
+  font-style: bold;
+  font-family: "Lucida Console", "Courier New", monospace;
+  color: rgb(5, 64, 83);
+}
+.sakt {
+  background-color: rgb(5, 64, 83);  
 }
 .galva {
-  padding: 10px;
-  text-align: center;
+  margin-left: 10px;
+  padding: 5px;
 }
 td {
-  padding-left: 80px;
+  padding-left: 20px;
 }
 .josla {
+  position: sticky;
+  top: 0;
   overflow: hidden;
   background-color: #f1f1f1;
   color: rgb(5, 64, 83);
   font-size: 14px;
   font-weight: bold;
   text-shadow: 2px 2px 5px gray;
-}
+ }
 
 .josla a {
   float: left;
@@ -58,36 +67,6 @@ td {
   color: black;
 }
 
-/* Create three unequal columns that floats next to each other */
-.column {
-  float: left;
-  padding: 10px;
-}
-
-/* Left and right column */
-.column.side {
-  width: 25%;
-}
-
-/* Middle column */
-.column.middle {
-  width: 50%;
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-  .column.side, .column.middle {
-    width: 100%;
-  }
-}
-
 .footer {
   background-color: #f1f1f1;
   color: rgb(5, 64, 83);
@@ -98,69 +77,110 @@ td {
 </head>
 
 <body>
-
 <div class="galva">
-  <h1>Spēle "Burtlicis"</h1>
+  <h1>Spēle "Lingo"</h1>
  </div>
 
 <div class="josla">
-  <a href="#">Sākums</a>
-  <a href="#">Spēle</a>
-  <a href="#">Spēles rezultāti</a>
-  <a href="#">Spēles noteikumi</a>
+  <a href="#ievads">Sākums</a>
+  <a href="#spele">Spēle</a>
+  <a href="#rezultati">Rezultāti</a>
+  <a href="#noteikumi">Kā spēlēt</a>
 </div>
-
-<div class="row">
-  <div class="column side">
+<div class="ievads" id="ievads">
+    <h2>Līmenis</h2>
+    <p>Izvēlies līmeni:</p>
     <p>
-      <button type="button" onclick="alert('Drīz būs ...')">
-        <img src="play.png" alt="Sākšanas poga" style="width:100px;height:100px;">
+    <select id="limeni_id" name="speles_limenis">
+      <option value="l1">1. līmenis - 6 burtu vārdi</option>
+      <option value="l2">2. līmenis - 7 burtu vārdi</option>
+      <option value="l3">3. līmenis - 8 burtu vārdi</option>
+      <option value="l4">4. līmenis - 9 burtu vārdi</option>
+    </select>
+    </p>
+    <p>
+      <button class="sakt" type="button" onclick="alert('Drīz būs ...')">
+        <img src="play.png" alt="Sākšanas poga"
+		      style="width:100px;height:100px;">
       </button>
     </p>
-  </div>
+</div>
   
-  <div class="column middle">
+<div class="spele" id="spele">
     <h2>
       <table>
         <tr>
           <td>Punkti:</td>
           <td>Laiks:</td>
-          <td>Līmenis:</td>
-          <td>Kopā:</td>
+          <td>Dzīvības:</td>
         </tr>
       </table>
     </h2>
-    <i>
-      <p>Tālāk būs kaut kas tāds. </p>
-      <p>Virs tā būs saraksts ar dotajā burtu virknējumā jau atrastajiem vārdiem.</p>
-      <p>Baltajos laukumos varēs redzēt citā krāsā, ka burts ir ievietots, bet nerādīs pašu burtu.</p>
-    </i> 
-    <img src="l0.png" alt="Paraugs">
-  </div>
-  
-  <div class="column side">
+</div>
+<div class="alfabets">
+  <p>
+    <button type="button" class = "viens" onclick="nospiests('A')">A </button>
+    <button type="button" class = "viens" onclick="nospiests('Ā')">Ā </button>
+    <button type="button" class = "viens" onclick="nospiests('B')">B </button>
+    <button type="button" class = "viens" onclick="nospiests('C')">C </button>
+    <button type="button" class = "viens" onclick="nospiests('Č')">Č </button>
+    <button type="button" class = "viens" onclick="nospiests('D')">D </button>
+    <button type="button" class = "viens" onclick="nospiests('E')">E </button>
+    <button type="button" class = "viens" onclick="nospiests('Ē')">Ē </button>
+    <button type="button" class = "viens" onclick="nospiests('F')">F </button>
+    <button type="button" class = "viens" onclick="nospiests('G')">G </button>
+    <button type="button" class = "viens" onclick="nospiests('Ģ')">Ģ </button>
+  </p>  
+  <p>
+    <button type="button" class = "viens" onclick="nospiests('H')">H </button>
+    <button type="button" class = "viens" onclick="nospiests('I')">I </button>
+    <button type="button" class = "viens" onclick="nospiests('Ī')">Ī </button>
+    <button type="button" class = "viens" onclick="nospiests('J')">J </button>
+    <button type="button" class = "viens" onclick="nospiests('K')">K </button>
+    <button type="button" class = "viens" onclick="nospiests('Ķ')">Ķ </button> 
+    <button type="button" class = "viens" onclick="nospiests('L')">L </button>
+    <button type="button" class = "viens" onclick="nospiests('Ļ')">Ļ </button>
+    <button type="button" class = "viens" onclick="nospiests('M')">M </button>
+    <button type="button" class = "viens" onclick="nospiests('N')">N </button>
+    <button type="button" class = "viens" onclick="nospiests('Ņ')">Ņ </button>
+  </p> 
+  <p>
+    <button type="button" class = "viens" onclick="nospiests('O')">O </button>
+    <button type="button" class = "viens" onclick="nospiests('P')">P </button>
+    <button type="button" class = "viens" onclick="nospiests('R')">R </button>
+    <button type="button" class = "viens" onclick="nospiests('S')">S </button>
+    <button type="button" class = "viens" onclick="nospiests('Š')">Š </button>
+    <button type="button" class = "viens" onclick="nospiests('T')">T </button>
+    <button type="button" class = "viens" onclick="nospiests('U')">U </button>
+    <button type="button" class = "viens" onclick="nospiests('Ū')">Ū </button>
+    <button type="button" class = "viens" onclick="nospiests('V')">V </button>
+    <button type="button" class = "viens" onclick="nospiests('Z')">Z </button>
+    <button type="button" class = "viens" onclick="nospiests('Ž')">Ž </button>
+
+   </p>   
+</div>
+<div class="noteikumi" id="noteikumi">
     <h2>Spēles noteikumi</h2>
-    <p>No dotajiem burtiem jāsaliek vārds.
-		Vārdu derīgums tiek pārbaudīts spēles vārdnīcā.</p>
-	<p>Līmeņa iziešanai paredzētais laiks ir 2:30.</p>
-    <p>Lai tiktu nākamajā līmenī, jāatmin sešu burtu vārds vai
-	jāiegūst norādītais punktu skaits no īsākiem vārdiem.</p>
-	<p>Punktu piešķiršana:</p>
-	<ul>
-		<li>trīs burtu - 90 punkti</li>
-		<li>četru burtu - 160 punkti</li>
-		<li>piecu burtu - 250 punkti</li>
-		<li>sešu burtu - 360 punkti</li>
-	</ul> 
-    <p>Veiksmīgu spēli!</p>
-
-  </div>
+    <p>Jāatmin 5 vārdi 5 minūtēs.</p>
+    <p>Neapreizi atminēts vārds samazina "dzīvību" skaitu.</p>
+    <p>Pareiza atbilde palielina punktu skaitu un minēšanai paredzēto laiku.</p>
+    <p>Dzeltens laukums nozīmē, ka tāds burts vārdā ir, bet tikai citā vietā.</p>
+    <p>Zaļš laukums nozīmē, ka tāds burts vārdā ir un atrodas pareizā vietā.</p>
 </div>
-
+<div class="rezultati" id=="rezultati">
+  <h2>Rezultātu tabula</h2>
+ </div>
 <div class="footer">
-  <p>Spēli veidoja Iveta Gultniece kā uzdevumu start(it) kursu ietvaros.</p>
+  <p>Spēli veidoja Iveta Gultniece kā uzdevumu Start(IT) kursu ietvaros.</p>
 </div>
+ 
+<script>
+  var limenis = 1;
+  function nospiests (ievade) {
+    window.alert (ievade);
+  }
   
+</script>
 </body>
 </html>
 
