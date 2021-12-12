@@ -32,6 +32,14 @@ h1 {
   font-family: "Lucida Console", "Courier New", monospace;
   color: rgb(5, 64, 83);
 }
+.divi {
+  background-color: white;
+  border: 1 px;
+  font-size: 32px;
+  font-style: bold;
+  font-family: "Lucida Console", "Courier New", monospace;
+  color: rgb(5, 64, 83);
+}
 .sakt {
   background-color: rgb(5, 64, 83);  
 }
@@ -43,7 +51,7 @@ td {
   padding-left: 20px;
 }
 .josla {
-  position: sticky;
+
   top: 0;
   overflow: hidden;
   background-color: #f1f1f1;
@@ -82,24 +90,24 @@ td {
  </div>
 
 <div class="josla">
-  <a href="#ievads">Sākums</a>
-  <a href="#spele">Spēle</a>
-  <a href="#rezultati">Rezultāti</a>
-  <a href="#noteikumi">Kā spēlēt</a>
+  <a href="#ievads" onclick="show_ievads()">Sākums</a>
+  <a href="#spele" onclick="show_spele()">Spēle</a>
+  <a href="#rezultati" onclick="show_rezultati()">Rezultāti</a>
+  <a href="#noteikumi" onclick="show_noteikumi()">Kā spēlēt</a>
 </div>
 <div class="ievads" id="ievads">
     <h2>Līmenis</h2>
     <p>Izvēlies līmeni:</p>
     <p>
-    <select id="limeni_id" name="speles_limenis">
-      <option value="l1">1. līmenis - 6 burtu vārdi</option>
-      <option value="l2">2. līmenis - 7 burtu vārdi</option>
-      <option value="l3">3. līmenis - 8 burtu vārdi</option>
-      <option value="l4">4. līmenis - 9 burtu vārdi</option>
+    <select id="limeni_id" name="speles_limenis" onchange="izvele()">
+      <option value="6">1. līmenis - 6 burtu vārdi</option>
+      <option value="7">2. līmenis - 7 burtu vārdi</option>
+      <option value="8">3. līmenis - 8 burtu vārdi</option>
+      <option value="9">4. līmenis - 9 burtu vārdi</option>
     </select>
     </p>
     <p>
-      <button class="sakt" type="button" onclick="alert('Drīz būs ...')">
+      <button class="sakt" type="button" onclick="show_spele()">
         <img src="play.png" alt="Sākšanas poga"
 		      style="width:100px;height:100px;">
       </button>
@@ -107,16 +115,20 @@ td {
 </div>
   
 <div class="spele" id="spele">
+  <div class="info" id="info">
     <h2>
       <table>
         <tr>
-          <td>Punkti:</td>
-          <td>Laiks:</td>
-          <td>Dzīvības:</td>
+          <td id="punkti">Punkti:</td>
+          <td id="laiks">Laiks:</td>
+          <td id="paliek">Dzīvības:</td>
         </tr>
       </table>
     </h2>
-</div>
+  </div>
+  <div class="lauki" id="lauki">
+
+  </div>
 <div class="alfabets">
   <p>
     <button type="button" class = "viens" onclick="nospiests('A')">A </button>
@@ -159,27 +171,152 @@ td {
 
    </p>   
 </div>
+</div>
+<div class="rezultati" id="rezultati">
+  <h2>Rezultātu tabula</h2>
+</div>
 <div class="noteikumi" id="noteikumi">
     <h2>Spēles noteikumi</h2>
-    <p>Jāatmin 5 vārdi 5 minūtēs.</p>
-    <p>Neapreizi atminēts vārds samazina "dzīvību" skaitu.</p>
+    <p>Jāatmin 5 lietvārdi 5 minūtēs.</p>
+    <p>Nepareizi atminēts vārds samazina "dzīvību" skaitu.</p>
     <p>Pareiza atbilde palielina punktu skaitu un minēšanai paredzēto laiku.</p>
     <p>Dzeltens laukums nozīmē, ka tāds burts vārdā ir, bet tikai citā vietā.</p>
     <p>Zaļš laukums nozīmē, ka tāds burts vārdā ir un atrodas pareizā vietā.</p>
 </div>
-<div class="rezultati" id=="rezultati">
-  <h2>Rezultātu tabula</h2>
- </div>
 <div class="footer">
   <p>Spēli veidoja Iveta Gultniece kā uzdevumu Start(IT) kursu ietvaros.</p>
 </div>
- 
+
 <script>
-  var limenis = 1;
-  function nospiests (ievade) {
+//=============================================================================== 
+function izvele(){
+  limenis = document.getElementById("limeni_id").value;
+}
+
+ function show_ievads() {
+  var ie = document.getElementById("ievads");
+  var sp = document.getElementById("spele");
+  var no = document.getElementById("noteikumi");
+  var re = document.getElementById("rezultati");
+  ie.style.display = "block";
+  sp.style.display = "none";
+  no.style.display = "none";
+  re.style.display = "none";
+}
+ function show_noteikumi() {
+  var ie = document.getElementById("ievads");
+  var sp = document.getElementById("spele");
+  var no = document.getElementById("noteikumi");
+  var re = document.getElementById("rezultati");
+  no.style.display = "block";
+  sp.style.display = "none";
+  ie.style.display = "none";
+  re.style.display = "none";
+}
+ function show_rezultati() {
+  var ie = document.getElementById("ievads");
+  var sp = document.getElementById("spele");
+  var no = document.getElementById("noteikumi");
+  var re = document.getElementById("rezultati");
+  re.style.display = "block";
+  sp.style.display = "none";
+  no.style.display = "none";
+  ie.style.display = "none";
+}
+function laukumi(n){
+          let forma = document.createElement("FORM");
+          for(let r=0; r<5; r++){
+            let rinda=document.createElement("div");
+            for(let k=0; k<n; k++){
+              let poga = document.createElement("input");
+              poga.setAttribute("id","p" + r + k);
+              poga.type="button";
+              poga.className="divi";
+              poga.value="X";
+              rinda.appendChild(poga);
+              forma.appendChild(rinda);
+            }
+          if (r==4) {
+                poga = document.createElement("input");
+                poga.type="button";
+                poga.style.backgroundImage="url('backspace.png')"; 
+                rinda.appendChild(poga);
+                poga = document.createElement("input");
+                poga.type="button";
+                poga.style.backgroundImage="url('ok.png')";
+                rinda.appendChild(poga);
+              }
+            }  
+          forma.style.backgroundColor = "rgb(5, 64, 83)";
+          document.getElementById("lauki").appendChild(forma);
+        }
+function partija(vards) {
+
+}
+ function show_spele() {
+  var ie = document.getElementById("ievads");
+  var sp = document.getElementById("spele");
+  var no = document.getElementById("noteikumi");
+  var re = document.getElementById("rezultati");
+  sp.style.display = "block";
+  ie.style.display = "none";
+  no.style.display = "none";
+  re.style.display = "none";
+  // sākumvērtības
+  punkti=0;
+  laiks= 5*60;
+  paliek = 0;
+  var minutes, sekundes;
+  document.getElementById("punkti").innerHTML = "Punkti: "+ punkti;
+  document.getElementById("laiks").innerHTML = "Laiks: 5:00";
+  document.getElementById("paliek").innerHTML = "Dzīvības: "+ paliek;
+  //laika skaitīšana
+  var laika_taimeris = setInterval(function(){
+  minutes = Math.floor(laiks/60);
+  sekundes = laiks - minutes*60;
+    if(laiks <= 0){
+      clearInterval(laika_taimeris);
+    }
+    var nulle="";
+    if(sekundes <10 ) {
+      nulle="0";
+    }
+  document.getElementById("laiks").innerHTML = "Laiks: "+ minutes + ":" + nulle + sekundes;
+  laiks -= 1;
+  }, 1000);
+  // izvēlētā garuma vārdu masīva sagatavošana
+  var speles_masivs=[];
+  var vards;
+  for (j = 0; j < vardu_masivs.length; j++) {
+    vards = vardu_masivs[j];
+    if (vards.length == limenis) {
+      speles_masivs.push(vards);
+    }
+  }
+  // minējuma laukumu izveide
+   laukumi (limenis);
+   //nejauša vārda izvēle
+  var atrasts = false;
+  var n = Math.floor(Math.random() * speles_masivs.length);
+  var minamais = speles_masivs[n];
+  var burts1 = minamais.substr(0,1);
+ }
+
+ function nospiests (ievade) {
     window.alert (ievade);
   }
-  
+ 
+  var limenis = 6;
+  var lietoti = [];
+  var punkti = 0;
+  var laiks = 0;
+  var paliek = 0;
+  var vardu_masivs=["KURKULIS","PAMALE","KAKTUSS","SKAPIS","PELEMENIS",
+  "SPROSTS","DINOZAURS","PURENE","ĶĪSELIS","JĀŅOGA","BURKĀNS","PLANŠETE","KAROTE",
+  "PUMPURS","ZĪMULIS","ZEMENE","LĀSTEKA","SIENĀZIS","GRĀMATA","SPOGULIS","SALDĒJUMS",
+  "BIEZPIENS","ATKUSNIS","CIPARS","LĀPSTA","KABATA","GRĀMATA","PRIEDE","BRIEDIS",
+  "ZVAIGZNE","LIDMAŠĪNA","GAILIS",""];
+  show_ievads();
 </script>
 </body>
 </html>
