@@ -119,9 +119,9 @@ td {
     <h2>
       <table>
         <tr>
-          <td id="punkti">Punkti:</td>
           <td id="laiks">Laiks:</td>
-          <td id="paliek">Dzīvības:</td>
+          <td id="atmineti">Atminēti:</td>
+          <td id="neatmineti">Neatminēti:</td>
         </tr>
       </table>
     </h2>
@@ -223,36 +223,118 @@ function izvele(){
   no.style.display = "none";
   ie.style.display = "none";
 }
-function laukumi(n){
+// Spēles burtu laukumu un pogu izveide
+function laukumi(){
+  var ir = document.getElementById("dinamika");
+  if (ir!=null) {
+    ir.remove(); 
+  }
           let forma = document.createElement("FORM");
+          forma.id="dinamika";
           for(let r=0; r<5; r++){
             let rinda=document.createElement("div");
-            for(let k=0; k<n; k++){
+            for(let k=0; k < limenis; k++){
               let poga = document.createElement("input");
               poga.setAttribute("id","p" + r + k);
               poga.type="button";
               poga.className="divi";
-              poga.value="X";
+              poga.value=" ";
               rinda.appendChild(poga);
               forma.appendChild(rinda);
             }
           if (r==4) {
                 poga = document.createElement("input");
                 poga.type="button";
-                poga.style.backgroundImage="url('backspace.png')"; 
+                poga.className="divi";
+                poga.value = '<-';
+                poga.setAttribute( "onClick", "dzeest();" );
                 rinda.appendChild(poga);
                 poga = document.createElement("input");
                 poga.type="button";
-                poga.style.backgroundImage="url('ok.png')";
+                poga.className="divi";
+                poga.value="Gatavs";
+                poga.setAttribute( "onClick", "gatavs();" );
                 rinda.appendChild(poga);
               }
             }  
           forma.style.backgroundColor = "rgb(5, 64, 83)";
           document.getElementById("lauki").appendChild(forma);
         }
-function partija(vards) {
+  // dzēš pēdējo ievadīto burtu
+  function dzeest() {
+    for(let b = limenis; b > 0; b--){
+      let burtaId = "p4" + (b - 1);
+      let a = document.getElementById(burtaId).value;
+      if (a != " ") {
+        document.getElementById(burtaId).value = " ";
+        break;
+      }
+    }
+  }
+ 
+  // Lietotājs ir apstiprinājis, ka vārds ir sastādīts un to var pārbaudīt
+  // funkcija ievieto vārdu minējumu rindā, pārbauda burtu vietas un vārda sakritību
+  function gatavs() {
+    let e = "";
+    let bId = "p" + rinda;
+    for(let i = 0; i < limenis; i++){
+      let aId = "p4" + i;
+      let a = document.getElementById(aId).value; // burts pārbaudāmajā rindā
+      document.getElementById(bId + i).value = a;
+      document.getElementById(aId).value = " ";
+      let c = minamais.substr(i,1); // i-tais burts minamajā vārdā
+      let d = minamais.search(a); // meklē burtu minamajā vārdā
+      if (d == -1) {
+        document.getElementById(bId + i).style.backgroundColor = "#ff8080"; // sarkans
+      } else {
+        if (c == a) {
+          document.getElementById(bId + i).style.backgroundColor = "#33ff33"; // zaļš
+        } else {
+          document.getElementById(bId + i).style.backgroundColor = "#ffff66"; // dzeltens
+        }
+      }
+      e = e + a;
+    }
+    // vārds ir pareizs
+    if (minamais == e) {
+      atmineti = atmineti + 1;
+      document.getElementById("atmineti").innerHTML = "Atminēti: "+ atmineti;
+    }
+    rinda = rinda + 1;
+    // mēģinājumu  rindas ir pilnas
+    if (rinda == 4) {
+      neatmineti = neatmineti + 1;
+      document.getElementById("neatmineti").innerHTML = "Neatminēti: "+ neatmineti;
+    }
+    // jauna vārda sagatavošana pec atminēšanas vai neatinēšanas    
+    if (rinda == 4||minamais == e) {
+      for(let r = 0; r < 5; r++){
+          for(let k = 0; k < limenis; k++){
+            let b = "p" + r + k;
+            document.getElementById(b).value = " ";
+            document.getElementById(b).style.backgroundColor = "white"; // balts
+          }
+        }
+        rinda = 0;
+        var n = Math.floor(Math.random() * speles_masivs.length);
+        minamais = speles_masivs[n];
+        let c = minamais.substr(0,1);
+        document.getElementById("p00").value = c;
+         
+    }
+  }  
+  // nospiests alfabeta burts, ko ievieto ievades rindā, ja tā nav pilna 
+  function nospiests (ievade) {
+    for(let b = 0; b < limenis; b++){
+      let burtaId = "p4" + b;
+      let a = document.getElementById(burtaId).value;
+      if (a == " ") {
+        document.getElementById(burtaId).value = ievade;
+        break;
+      }
+    }
+  }
 
-}
  function show_spele() {
   var ie = document.getElementById("ievads");
   var sp = document.getElementById("spele");
@@ -263,29 +345,29 @@ function partija(vards) {
   no.style.display = "none";
   re.style.display = "none";
   // sākumvērtības
-  punkti=0;
-  laiks= 5*60;
-  paliek = 0;
+  neatmineti = 0;
+  laiks= 5 * 60;
+  atmineti = 0;
+  neatmineti = 0;
   var minutes, sekundes;
-  document.getElementById("punkti").innerHTML = "Punkti: "+ punkti;
+  document.getElementById("neatmineti").innerHTML = "Neatminēti: "+ neatmineti;
   document.getElementById("laiks").innerHTML = "Laiks: 5:00";
-  document.getElementById("paliek").innerHTML = "Dzīvības: "+ paliek;
+  document.getElementById("atmineti").innerHTML = "Atminēti: "+ atmineti;
   //laika skaitīšana
   var laika_taimeris = setInterval(function(){
-  minutes = Math.floor(laiks/60);
-  sekundes = laiks - minutes*60;
+  minutes = Math.floor(laiks / 60);
+  sekundes = laiks - minutes * 60;
     if(laiks <= 0){
       clearInterval(laika_taimeris);
     }
-    var nulle="";
+    var nulle = "";
     if(sekundes <10 ) {
-      nulle="0";
+      nulle = "0";
     }
   document.getElementById("laiks").innerHTML = "Laiks: "+ minutes + ":" + nulle + sekundes;
   laiks -= 1;
   }, 1000);
   // izvēlētā garuma vārdu masīva sagatavošana
-  var speles_masivs=[];
   var vards;
   for (j = 0; j < vardu_masivs.length; j++) {
     vards = vardu_masivs[j];
@@ -294,23 +376,24 @@ function partija(vards) {
     }
   }
   // minējuma laukumu izveide
-   laukumi (limenis);
-   //nejauša vārda izvēle
-  var atrasts = false;
+  laukumi ();
+  //nejauša vārda izvēle
+  var atmineti = 0;
   var n = Math.floor(Math.random() * speles_masivs.length);
-  var minamais = speles_masivs[n];
-  var burts1 = minamais.substr(0,1);
+    minamais = speles_masivs[n];
+    var burts1 = minamais.substr(0,1);
+    rinda = 0;
+    document.getElementById("p00").value = burts1;
  }
-
- function nospiests (ievade) {
-    window.alert (ievade);
-  }
- 
+  var speles_masivs=[];
+  var rinda = 0;
+  var minamais = "";
+  var ievadrinda="";
   var limenis = 6;
   var lietoti = [];
-  var punkti = 0;
+  var neatmineti = 0;
   var laiks = 0;
-  var paliek = 0;
+  var atmineti = 0;
   var vardu_masivs=["KURKULIS","PAMALE","KAKTUSS","SKAPIS","PELEMENIS",
   "SPROSTS","DINOZAURS","PURENE","ĶĪSELIS","JĀŅOGA","BURKĀNS","PLANŠETE","KAROTE",
   "PUMPURS","ZĪMULIS","ZEMENE","LĀSTEKA","SIENĀZIS","GRĀMATA","SPOGULIS","SALDĒJUMS",
