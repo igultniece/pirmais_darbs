@@ -122,6 +122,7 @@ td {
           <td id="laiks">Laiks:</td>
           <td id="atmineti">Atminēti:</td>
           <td id="neatmineti">Neatminēti:</td>
+          <td id="punkti">Punkti:</td>
         </tr>
       </table>
     </h2>
@@ -177,11 +178,15 @@ td {
 </div>
 <div class="noteikumi" id="noteikumi">
     <h2>Spēles noteikumi</h2>
-    <p>Jāatmin 5 lietvārdi 5 minūtēs.</p>
-    <p>Nepareizi atminēts vārds samazina "dzīvību" skaitu.</p>
-    <p>Pareiza atbilde palielina punktu skaitu un minēšanai paredzēto laiku.</p>
+    <p>Vārda pirmais burts tiek dots.</p>
+    <p>Izmantojot burtu pogas, jāsastāda atminamais vārds.</p>
+    <p>Dzēšanai var izmantot pogu <--.</p>
+    <p>Kad vārds sastādīts, jāpiespiež poga <b>Pārbaudīt</b>.</p>
     <p>Dzeltens laukums nozīmē, ka tāds burts vārdā ir, bet tikai citā vietā.</p>
     <p>Zaļš laukums nozīmē, ka tāds burts vārdā ir un atrodas pareizā vietā.</p>
+    <p>Pareiza atbilde palielina punktu skaitu.</p>
+    <p>Punktu skaits ir atkarīgs no tā, kurā mēģinājumā vārds atminēts.</p>
+    <p>Kopējais spēles laiks ir 5 minūtes.</p>
 </div>
 <div class="footer">
   <p>Spēli veidoja Iveta Gultniece kā uzdevumu Start(IT) kursu ietvaros.</p>
@@ -222,6 +227,7 @@ function izvele(){
   sp.style.display = "none";
   no.style.display = "none";
   ie.style.display = "none";
+
 }
 // Spēles burtu laukumu un pogu izveide
 function laukumi(){
@@ -252,7 +258,7 @@ function laukumi(){
                 poga = document.createElement("input");
                 poga.type="button";
                 poga.className="divi";
-                poga.value="Gatavs";
+                poga.value="Pārbaudīt";
                 poga.setAttribute( "onClick", "gatavs();" );
                 rinda.appendChild(poga);
               }
@@ -299,6 +305,8 @@ function laukumi(){
     if (minamais == e) {
       atmineti = atmineti + 1;
       document.getElementById("atmineti").innerHTML = "Atminēti: "+ atmineti;
+      punkti = punkti + (4 - rinda) * 10;
+      document.getElementById("punkti").innerHTML = "Punkti: "+ punkti;
     }
     rinda = rinda + 1;
     // mēģinājumu  rindas ir pilnas
@@ -306,7 +314,7 @@ function laukumi(){
       neatmineti = neatmineti + 1;
       document.getElementById("neatmineti").innerHTML = "Neatminēti: "+ neatmineti;
     }
-    // jauna vārda sagatavošana pec atminēšanas vai neatinēšanas    
+    // jauna vārda sagatavošana pec atminēšanas vai neatminēšanas    
     if (rinda == 4||minamais == e) {
       for(let r = 0; r < 5; r++){
           for(let k = 0; k < limenis; k++){
@@ -349,10 +357,12 @@ function laukumi(){
   laiks= 5 * 60;
   atmineti = 0;
   neatmineti = 0;
+  punkti= 0;
   var minutes, sekundes;
   document.getElementById("neatmineti").innerHTML = "Neatminēti: "+ neatmineti;
   document.getElementById("laiks").innerHTML = "Laiks: 5:00";
   document.getElementById("atmineti").innerHTML = "Atminēti: "+ atmineti;
+  document.getElementById("punkti").innerHTML = "Punkti: "+ punkti;
   //laika skaitīšana
   var laika_taimeris = setInterval(function(){
   minutes = Math.floor(laiks / 60);
@@ -364,7 +374,11 @@ function laukumi(){
     if(sekundes <10 ) {
       nulle = "0";
     }
-  document.getElementById("laiks").innerHTML = "Laiks: "+ minutes + ":" + nulle + sekundes;
+    if(laiks <= 0) {
+      laiks = 0;
+      show_rezultati();
+    }
+    document.getElementById("laiks").innerHTML = "Laiks: "+ minutes + ":" + nulle + sekundes;
   laiks -= 1;
   }, 1000);
   // izvēlētā garuma vārdu masīva sagatavošana
@@ -392,6 +406,7 @@ function laukumi(){
   var limenis = 6;
   var lietoti = [];
   var neatmineti = 0;
+  var punkti = 0;
   var laiks = 0;
   var atmineti = 0;
   var vardu_masivs=["KURKULIS","PAMALE","KAKTUSS","SKAPIS","PELEMENIS",
